@@ -2,6 +2,9 @@ library(tidyverse)
 library(janitor)
 library(readr)
 library(naniar)
+library(geojsonio)
+library(broom)
+library(rgeos)
 
 #### wrangling state demographic data to create demographic metric 
 state_demographics <- read_csv("state_demographics.csv", 
@@ -358,6 +361,98 @@ KFF_vax_May3 <- read_csv("KFF_vax_May3.csv",
 
 # join each KFF_vax_[date] so that the column names are the same, want to 
 # be able to use reactive dataset in the shiny app to filter for the date the
-# user choses. 
+# user chooses. 
 
-KFF_vax_join <- 
+KFF_vax_join <- KFF_vax_March1 %>%
+  rbind(KFF_vax_March15) %>%
+  rbind(KFF_vax_March29) %>%
+  rbind(KFF_vax_April5) %>%
+  rbind(KFF_vax_April12) %>%
+  rbind(KFF_vax_April19) %>%
+  rbind(KFF_vax_April26) %>%
+  rbind(KFF_vax_May3)
+
+#### DATA WRANGLING FOR HEXBIN MAP 
+
+# Hexagones boundaries in geojson format:  
+# https://team.carto.com/u/andrew/tables/andrew.us_states_hexgrid/public/map.
+spdf <- geojson_read("us_states_hexgrid.geojson", what = "sp")
+
+# 'fortify' the data to be able to show it with ggplot2 
+# (needs to be in data frame format)
+# tidy() function is from the broom package
+spdf_fortified <- tidy(spdf, region = "google_name") 
+
+# Calculate the centroid of each hexagon to add the label
+# gCentroid function is from the rgeos package
+centers <- cbind.data.frame(data.frame(gCentroid(spdf, byid=TRUE)
+                                       , id=spdf@data$iso3166_2))
+
+# join data_wrangling with spdf_fortified by state
+# note: will have many many rows per state still 
+# (data_wrangling values will be repeated for each state)
+hexbin_wrangling <- spdf_fortified %>%
+  mutate(state = str_replace(id, " \\(United States\\)","")) %>%
+  left_join(KFF_vax_join, by = "state")
+
+# to plot with categorical value (demographic metric in categories) mapping to color cue:
+# create categorical var
+
+hexbin_wrangling <- hexbin_wrangling %>% # change continuous variable to categorical
+  mutate(white_metric_cat = cut(white_metric, 
+                                breaks = c(-1, 0.5, 0.95, 1.05, 1.5, 10),
+                                labels = c("Extrememly below share (<0.50x)", 
+                                           "Below share (0.50x-0.95x)", 
+                                           "Proportionate share (0.95x-1.05x)",
+                                           "Above share (1.05x-1.50x)",
+                                           "Extremely above share (>1.50x)")),
+         black_metric_cat = cut(black_metric, 
+                                breaks = c(-1, 0.5, 0.95, 1.05, 1.5, 10),                                
+                                labels = c("Extrememly below share (<0.50x)", 
+                                           "Below share (0.50x-0.95x)", 
+                                           "Proportionate share (0.95x-1.05x)",
+                                           "Above share (1.05x-1.50x)",
+                                           "Extremely above share (>1.50x)")),
+         hispanic_metric_cat = cut(hispanic_metric, 
+                                   breaks = c(-1, 0.5, 0.95, 1.05, 1.5, 10),                                   
+                                   labels = c("Extrememly below share (<0.50x)", 
+                                              "Below share (0.50x-0.95x)", 
+                                              "Proportionate share (0.95x-1.05x)",
+                                              "Above share (1.05x-1.50x)",
+                                              "Extremely above share (>1.50x)")),
+         asian_metric_cat = cut(asian_metric, 
+                                breaks = c(-1, 0.5, 0.95, 1.05, 1.5, 10),                                
+                                labels = c("Extrememly below share (<0.50x)", 
+                                           "Below share (0.50x-0.95x)", 
+                                           "Proportionate share (0.95x-1.05x)",
+                                           "Above share (1.05x-1.50x)",
+                                           "Extremely above share (>1.50x)")),
+         native_metric_cat = cut(native_metric, 
+                                 breaks = c(-1, 0.5, 0.95, 1.05, 1.5, 10),                                 
+                                 labels = c("Extrememly below share (<0.50x)", 
+                                            "Below share (0.50x-0.95x)", 
+                                            "Proportionate share (0.95x-1.05x)",
+                                            "Above share (1.05x-1.50x)",
+                                            "Extremely above share (>1.50x)")),
+         pacific_islander_metric_cat = cut(pacific_islander_metric, 
+                                           breaks = c(-1, 0.5, 0.95, 1.05, 1.5, 10),                                    
+                                           labels = c("Extrememly below share (<0.50x)", 
+                                                      "Below share (0.50x-0.95x)", 
+                                                      "Proportionate share (0.95x-1.05x)",
+                                                      "Above share (1.05x-1.50x)",
+                                                      "Extremely above share (>1.50x)")))
+
+
+hexbin_wrangling$white_metric_cat <- factor(hexbin_wrangling$white_metric_cat, 
+                                            levels = c("Extrememly below share (<0.50x)", 
+                                                       "Below share (0.50x-0.95x)", 
+                                                       "Proportionate share (0.95x-1.05x)",
+                                                       "Above share (1.05x-1.50x)",
+                                                       "Extremely above share (>1.50x)"))
+
+write_csv(hexbin_wrangling, "hexbin_wrangling.csv", append = FALSE)
+
+write_csv(centers, "centers.csv", append = FALSE)
+
+levels(hexbin_wrangling$white_metric_cat)
+
