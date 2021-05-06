@@ -1,0 +1,22 @@
+---
+title: "CU data"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+```{R}
+race <- c("Black", "White", "Hispanic", "Other")
+vacc <- c(31,53, 34, 46)
+planvacc <- c(21, 16, 28, 25)
+uncertain <- c(21, 13, 19, 13)
+unwilling <- c(27, 19, 19, 16)
+hestiancydata <- data.frame(race, vacc, planvacc, uncertain, unwilling)
+hestiancydata
+```
+
+
