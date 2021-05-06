@@ -59,7 +59,14 @@ KFF_vax_March1 <- read_csv("KFF_vax_March1.csv",
          hispanic_vax = as.numeric(hispanic_vax),
          native_vax = as.numeric(native_vax),
          pacific_islander_vax = as.numeric(pacific_islander_vax), 
-         date = "march 1")
+         date = "March 1") %>%
+  inner_join(state_demographics, by = "state") %>%
+  mutate(white_metric = white_vax/white_pop,
+         black_metric = black_vax/black_pop,
+         hispanic_metric = hispanic_vax/hispanic_pop, 
+         asian_metric = asian_vax/asian_pop,
+         native_metric = native_vax/native_pop,
+         pacific_islander_metric = pacific_islander_vax/pacific_islander_pop)
 
 ## March 15
 KFF_vax_March15 <- read_csv("KFF_vax_March15.csv", 
@@ -93,7 +100,14 @@ KFF_vax_March15 <- read_csv("KFF_vax_March15.csv",
          hispanic_vax = as.numeric(hispanic_vax),
          native_vax = as.numeric(native_vax),
          pacific_islander_vax = as.numeric(pacific_islander_vax), 
-         date = "march 15")
+         date = "March 15") %>%
+  inner_join(state_demographics, by = "state") %>%
+  mutate(white_metric = white_vax/white_pop,
+         black_metric = black_vax/black_pop,
+         hispanic_metric = hispanic_vax/hispanic_pop, 
+         asian_metric = asian_vax/asian_pop,
+         native_metric = native_vax/native_pop,
+         pacific_islander_metric = pacific_islander_vax/pacific_islander_pop)
 
 ## March 29
 KFF_vax_March29 <- read_csv("KFF_vax_March29.csv", 
@@ -127,7 +141,15 @@ KFF_vax_March29 <- read_csv("KFF_vax_March29.csv",
          hispanic_vax = as.numeric(hispanic_vax),
          native_vax = as.numeric(native_vax),
          pacific_islander_vax = as.numeric(pacific_islander_vax), 
-         date = "march 29") 
+         date = "March 29") %>%
+  inner_join(state_demographics, by = "state") %>%
+  mutate(white_metric = white_vax/white_pop,
+         black_metric = black_vax/black_pop,
+         hispanic_metric = hispanic_vax/hispanic_pop, 
+         asian_metric = asian_vax/asian_pop,
+         native_metric = native_vax/native_pop,
+         pacific_islander_metric = pacific_islander_vax/pacific_islander_pop)
+
 
 ## April 5
 KFF_vax_April5 <- read_csv("KFF_vax_April5.csv", 
@@ -161,7 +183,14 @@ KFF_vax_April5 <- read_csv("KFF_vax_April5.csv",
          hispanic_vax = as.numeric(hispanic_vax),
          native_vax = as.numeric(native_vax),
          pacific_islander_vax = as.numeric(pacific_islander_vax), 
-         date = "april 5") 
+         date = "April 5") %>%
+  inner_join(state_demographics, by = "state") %>%
+  mutate(white_metric = white_vax/white_pop,
+         black_metric = black_vax/black_pop,
+         hispanic_metric = hispanic_vax/hispanic_pop, 
+         asian_metric = asian_vax/asian_pop,
+         native_metric = native_vax/native_pop,
+         pacific_islander_metric = pacific_islander_vax/pacific_islander_pop)
 
 ## April 12
 KFF_vax_April12 <- read_csv("KFF_vax_April12.csv", 
@@ -195,7 +224,14 @@ KFF_vax_April12 <- read_csv("KFF_vax_April12.csv",
          hispanic_vax = as.numeric(hispanic_vax),
          native_vax = as.numeric(native_vax),
          pacific_islander_vax = as.numeric(pacific_islander_vax), 
-         date = "april 12") 
+         date = "April 12") %>%
+  inner_join(state_demographics, by = "state") %>%
+  mutate(white_metric = white_vax/white_pop,
+         black_metric = black_vax/black_pop,
+         hispanic_metric = hispanic_vax/hispanic_pop, 
+         asian_metric = asian_vax/asian_pop,
+         native_metric = native_vax/native_pop,
+         pacific_islander_metric = pacific_islander_vax/pacific_islander_pop)
 
 ## April 19
 KFF_vax_April19 <- read_csv("KFF_vax_April19.csv", 
@@ -229,7 +265,14 @@ KFF_vax_April19 <- read_csv("KFF_vax_April19.csv",
          hispanic_vax = as.numeric(hispanic_vax),
          native_vax = as.numeric(native_vax),
          pacific_islander_vax = as.numeric(pacific_islander_vax), 
-         date = "april 19")
+         date = "April 19") %>%
+  inner_join(state_demographics, by = "state") %>%
+  mutate(white_metric = white_vax/white_pop,
+         black_metric = black_vax/black_pop,
+         hispanic_metric = hispanic_vax/hispanic_pop, 
+         asian_metric = asian_vax/asian_pop,
+         native_metric = native_vax/native_pop,
+         pacific_islander_metric = pacific_islander_vax/pacific_islander_pop)
 
 ## April 26
 KFF_vax_April26 <- read_csv("KFF_vax_April26.csv", 
@@ -263,7 +306,14 @@ KFF_vax_April26 <- read_csv("KFF_vax_April26.csv",
          hispanic_vax = as.numeric(hispanic_vax),
          native_vax = as.numeric(native_vax),
          pacific_islander_vax = as.numeric(pacific_islander_vax), 
-         date = "april 26") 
+         date = "April 26") %>%
+  inner_join(state_demographics, by = "state") %>%
+  mutate(white_metric = white_vax/white_pop,
+         black_metric = black_vax/black_pop,
+         hispanic_metric = hispanic_vax/hispanic_pop, 
+         asian_metric = asian_vax/asian_pop,
+         native_metric = native_vax/native_pop,
+         pacific_islander_metric = pacific_islander_vax/pacific_islander_pop)
 
 ## May 3
 KFF_vax_May3 <- read_csv("KFF_vax_May3.csv", 
@@ -297,21 +347,17 @@ KFF_vax_May3 <- read_csv("KFF_vax_May3.csv",
          hispanic_vax = as.numeric(hispanic_vax),
          native_vax = as.numeric(native_vax),
          pacific_islander_vax = as.numeric(pacific_islander_vax), 
-         date = "april 26") 
-
-    mutate(white_metric = white_vax/white_pop,
-         black_metric = black_vax/black_pop,
-         hispanic_metric = hispanic_vax/hispanic_pop, 
-         asian_metric = asian_vax/asian_pop,
-         native_metric = native_vax/native_pop,
-         pacific_islander_metric = pacific_islander_vax/pacific_islander_pop)
-  
-## Joining datasets 
-KFF_vax_joined <- state_demographics %>% 
-    inner_join(KFF_vax_March1, by = "state") %>%
+         date = "May 3") %>%
+  inner_join(state_demographics, by = "state") %>%
     mutate(white_metric = white_vax/white_pop,
            black_metric = black_vax/black_pop,
            hispanic_metric = hispanic_vax/hispanic_pop, 
            asian_metric = asian_vax/asian_pop,
            native_metric = native_vax/native_pop,
            pacific_islander_metric = pacific_islander_vax/pacific_islander_pop)
+
+# join each KFF_vax_[date] so that the column names are the same, want to 
+# be able to use reactive dataset in the shiny app to filter for the date the
+# user choses. 
+
+KFF_vax_join <- 
