@@ -1,0 +1,17 @@
+﻿"Title: Percent of Total Population that has Received a COVID-19 Vaccine by Race/Ethnicity | KFF"
+"Timeframe: as of May 3, 2021"
+"Location","Race Categories Include Hispanic Individuals","% of Total White Population Vaccinated","% of Total Black Population Vaccinated","White to Black Ratio","Percentage Point Difference Between White and Black Rate","% of Total Hispanic Population Vaccinated","White to Hispanic Ratio","Percentage Point Difference Between White and Hispanic Rate","% of Total Asian Population Vaccinated","White to Asian Ratio","Percentage Point Difference Between White and Asian Rate"
+"United States","","0.39","0.25","1.54","-0.14","0.27","1.45","-0.12","0.48","0.82","0.09"
+
+"Sources"
+"Vaccination data based on KFF analysis of publicly available data on state websites; total population data used to calculate rates based on KFF analysis of 2019 American Community Survey data."
+
+"Definitions"
+"*NR*: Data not reported because state does not report vaccination data by race/ethnicity or state data has been excluded from vaccination rate analysis since the state reports data based total doses administered rather than people vaccinated. "
+""
+"Percent vaccinated includes people who have received at least one vaccine dose."
+
+"Notes"
+"Persons of Hispanic origin may be of any race. States vary in whether they include or exclude Hispanic individuals in racial categories. States also vary in their racial/ethnic classifications. For example, some states report Asian and Pacific Islander people separately while others report them as a combined group.Total population data used to calculate rates is matched to each states’ racial classification approach. Rates may not match those reported on state websites due to differences in the source for total population data."
+
+
