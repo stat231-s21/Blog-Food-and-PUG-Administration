@@ -13,15 +13,16 @@ texas_counties <- map_data(map = "county"
   select(-c(region, subregion))
 
 #### wrangling texas vaccination
-texas_vaccine_data <- read_csv("~/Blog Food and PUG Administration/raw data/alison/texas vaccination data/Texas Admin Vaccination Data by Race and by County .csv")%>%
+texas_vaccine_data <- read_csv("Texas Admin Vaccination Data by Race and by County .csv")%>%
   clean_names() %>%
   filter(race_ethnicity != "Unknown") %>%
   filter(county_name != "Other") %>%
   filter(county_name != "Grand Total") %>%
   select(-x6) %>%
-  pivot_wider(names_from = race_ethnicity, values_from = c(doses_administered
-                                                           , people_fully_vaccinated
-                                                           , people_vaccinated_with_at_least_one_dose))
+  pivot_wider(names_from = race_ethnicity
+              , values_from = c(doses_administered
+                                , people_fully_vaccinated
+                                , people_vaccinated_with_at_least_one_dose))
 
 #### wrangling texas population data
 texas_population_data <-read_csv("alldata.csv") %>%
