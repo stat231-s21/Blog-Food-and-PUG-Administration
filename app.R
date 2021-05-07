@@ -21,7 +21,13 @@ library(DT)
 # out of the continuous [demographic]_metric variables, with consistent breaks 
 # across the 6 demographic groups:
 # <=0.49x, 0.50x-0.74x, 0.75x-0.99x, 1.00x-1.24x, 1.25x-1.50x, >=1.50x
-hexbin_wrangling <- read_csv("hexbin_wrangling.csv")
+hexbin_wrangling <- read_csv("hexbin_wrangling.csv") %>%
+  mutate(white_metric_cat = as.factor(white_metric_cat),
+         black_metric_cat = as.factor(black_metric_cat), 
+         hispanic_metric_cat = as.factor(hispanic_metric_cat),
+         asian_metric_cat = as.factor(asian_metric_cat), 
+         native_metric_cat = as.factor(native_metric_cat),
+         pacific_islander_metric_cat = as.factor(pacific_islander_metric_cat))
 
 # Calculate the centroid of each hexagon to add the label
 # gCentroid function is from the rgeos package
@@ -198,7 +204,7 @@ server <- function(input, output){
       theme_void() +
       labs(fill = "Ratio of % vaccinations to % of population", 
            title = "Covid-19 vaccination proportionality by demographic group", 
-           caption = "  Data as of March 29, 2021  \n states shaded in grey had no data available") +
+           caption = paste("Data as of", input$date_choice, ", 2021  \n states shaded in grey had no data available")) +
       scale_fill_manual(breaks = c("Extrememly below share (<0.50x)", 
                                    "Below share (0.50x-0.95x)", 
                                    "Proportionate share (0.95x-1.05x)",
@@ -214,6 +220,7 @@ server <- function(input, output){
                                    "Proportionate share \n(0.95x-1.05x)",
                                    "Above share \n(1.05x-1.50x)",
                                    "Extremely \nabove share \n(>1.50x)"),
+                        drop=FALSE,
                         guide = guide_legend(keyheight = unit(3, units = "mm")
                                              , keywidth=unit(12, units = "mm")
                                              , label.position = "bottom"
