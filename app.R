@@ -191,7 +191,7 @@ server <- function(input, output){
   
   output$hexbin_map <- renderPlot({
     ggplot() +
-      geom_polygon(data=data_for_hexbin
+      geom_polygon(data=data_for_hexbin()
                    , aes_string(x="long", y="lat", group="group", fill=input$map_demographic)) +
       geom_text(data=centers, aes(x=x, y=y, label=id)
                 , color="white", size=3, alpha=0.6) +
