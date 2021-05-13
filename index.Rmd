@@ -1,7 +1,7 @@
 ---
-title: "Your Project Title Here"
-author: "Your Names Here"
-date: "Add a date"
+title: "Exploring Covid-19 Vaccinations in the United States by Race and Ethnicity"
+author: "Alison Ortiz-Dimas, Caroline Useda, Sabrina Trombetta"
+date: "May 2021"
 output:
   rmdformats::readthedown:
     thumbnails: false
