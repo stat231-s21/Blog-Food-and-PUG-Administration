@@ -10,13 +10,55 @@ knitr::opts_chunk$set(echo = TRUE)
 
 
 ```{R}
+#Data Wrangling for dataset
 race <- c("Black", "White", "Hispanic", "Other")
 vacc <- c(31,53, 34, 46)
 planvacc <- c(21, 16, 28, 25)
 uncertain <- c(21, 13, 19, 13)
 unwilling <- c(27, 19, 19, 16)
+black_hes <- 21+27
+hisp_hes <- 19+19
+white_hes <- 13 +19
+other_hes <- 13+16
 hestiancydata <- data.frame(race, vacc, planvacc, uncertain, unwilling)
 hestiancydata
+
+library(readr)
+library(tidyverse)
+bardata <- read_csv("~/R/Blog-Food-and-PUG-Administration/raw data/caroline/may 3.csv", 
+    skip = 2) %>%
+  slice(1:1)
+
+bardata <- bardata %>%
+  select("% of Total White Population Vaccinated", "% of Total Black Population Vaccinated", "% of Total Hispanic Population Vaccinated", Location ) %>%
+  rename("white_vacc" = "% of Total White Population Vaccinated",  "black_vacc" =  "% of Total Black Population Vaccinated","hisp_vacc" = "% of Total Hispanic Population Vaccinated") %>%
+  mutate(white_nvacc = 1- white_vacc, black_nvacc= 1-black_vacc, hisp_nvacc = 1- hisp_vacc) 
+
+bardata$black_hes <- .21+.27
+bardata$hisp_hes <- .19+.19
+bardata$white_hes <- .13 +.19
+
+race <- c("Black", "Black", "Black", "White", "White","White", "Hispanic", "Hispanic", "Hispanic")
+measure <- c("Not Vaccinated", "Hesitant","Ratio (Hesitant / Not Vaccinated)", "Not Vaccinated", "Hesitant","Ratio (Hesitant / Not Vaccinated)", "Not Vaccinated", "Hesitant", "Ratio (Hesitant / Not Vaccinated)")
+value <- c(.75, .48, .64, .51, .32,.63, .73, .38, .52)
+bardata1 <- data.frame(race, measure, value)
+bardata1
 ```
 
+```{r, fig.width=8}
+#Bar chart
+ggplot(bardata1, 
+       aes(fill=measure, 
+           y=value, 
+           x=race)) + 
+    geom_bar(position="dodge", 
+             stat="identity") + 
+  scale_fill_brewer(palette = "Set2") +
+  labs( 
+    title = "Does vaccine hesitancy account for lack of vaccinations among racial groups?", 
+    y = "Percentage",  
+    x = "Race", 
+    fill = "Measure")
+
+```
 
