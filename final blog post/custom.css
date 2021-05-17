@@ -6,16 +6,16 @@
 
 
 #main .nav-pills > li > a:hover {
-    background-color: #982d7f;
+    background-color: #982d7f; /* pink */
 }
 
 
 h1, h2, h3, h4, h5, h6, legend {
-    color: #982d7f;
+    color: #982d7f; 
 }
 
 #nav-top span.glyphicon {
-    color: #5f187f;
+    color: #5f187f; /* purple */
 }
 
 #table-of-contents header {
@@ -27,12 +27,11 @@ h1, h2, h3, h4, h5, h6, legend {
 }
 
 #main a {
-    background-image: linear-gradient(180deg,#d64a70,#d64a70);
-    color: #c7254e;
+    background-image: linear-gradient(180deg,#d64a70,#d64a70)
 }
 
 #content h2 {
-    background-color: #e95420;
+    background-color: #e95420; /* unicode-range: ; */
 }
 
 #sidebar {

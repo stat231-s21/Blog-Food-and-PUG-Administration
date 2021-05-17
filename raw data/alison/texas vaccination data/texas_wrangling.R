@@ -12,19 +12,21 @@ texas_counties <- map_data(map = "county"
                          , region = ".") %>%
   filter(region == "texas") %>%
   mutate(county_name = str_to_title(subregion)) %>%
-  select(-c(region, subregion))
+  select(-c(region, subregion)) %>%
+  mutate(county_name = paste0(county_name, " County" ))
+  
 
 #### wrangling texas vaccination
-texas_vaccine_data <- read_csv("Texas Admin Vaccination Data by Race and by County .csv")%>%
+texas_vaccine_data <- read_csv("texas_vaccine_data_by_race.csv")%>%
   clean_names() %>%
   filter(race_ethnicity != "Unknown") %>%
   filter(county_name != "Other") %>%
   filter(county_name != "Grand Total") %>%
-  select(-x6) %>%
   pivot_wider(names_from = race_ethnicity
               , values_from = c(doses_administered
                                 , people_fully_vaccinated
-                                , people_vaccinated_with_at_least_one_dose))
+                                , people_vaccinated_with_at_least_one_dose)) %>%
+  mutate(county_name = paste0(county_name, " County" ))
 
 #### wrangling texas population data
 texas_population_data <-read_csv("alldata.csv") %>%
@@ -43,9 +45,11 @@ texas_population_data <-read_csv("alldata.csv") %>%
          , "white_population" = "NH_White_Total"
          , "other_population" = "NH_Other_Total"
          , "total_population" = "Total") %>%
-  mutate(County = str_to_title(County)) %>%
-  separate(County, into=c("county_name", "remove"), remove = FALSE) %>%
-  select(-c(remove, County))
+ mutate(County = str_to_title(County)) %>%
+  rename("county_name" = "County")
+#%>%
+  #separate(County, into=c("county_name", "remove"), remove = FALSE) %>%
+ # select(-c(remove, County))
 
 texas_total <- read_csv("texas_total.csv", 
                 col_types = cols(`Total Doses Allocated` = col_number(), 
@@ -53,12 +57,16 @@ texas_total <- read_csv("texas_total.csv",
                 `People Vaccinated with at least One Dose` = col_integer(), 
                 `People Fully Vaccinated` = col_number())) %>%
   clean_names() %>%
-  select(c(county_name, people_fully_vaccinated))
+  select(c(county_name, people_fully_vaccinated)) %>%
+  mutate(county_name = paste0(county_name, " County" ))
   
 texas_county_fips <- read_csv("texas_county_fips.csv", 
                               col_types = cols(`FIPS #` = col_character())) %>%
   clean_names() %>%
   mutate("COUNTYFP" = fips_number)
+
+
+
 
 #### joining 
 texas_data <- texas_vaccine_data %>% 
@@ -122,36 +130,37 @@ ggplot(texas_data, aes(x = long, y = lat, group = group
 
 
 tracts <- tracts(state = 'TX', cb=TRUE) %>%
-  inner_join(texas_county_fips, by = "COUNTYFP")
+  inner_join(texas_county_fips, by = "COUNTYFP") %>%
+  mutate(county_name = paste0(county_name, " County" ))
 
-df_merged <- geo_join(tracts, texas_data, "county_name", "county_name")
+texas_merged <- geo_join(tracts, texas_data, "county_name", "county_name")
 
-popup <- paste0(df_merged$county_name
+popup <- paste0(texas_merged$county_name
                 , "<br>"
                 , "<br>"
                 , "Percent of Total population vaccinated: "
-                , round(df_merged$total_fully,2)
+                , round(texas_merged$total_fully,2)
                 , "<br>"
                 , "<br>"
                 , "Percent of Asian population vaccinated: "
-                , round(df_merged$asian_fully,2)
+                , round(texas_merged$asian_fully,2)
                 , "<br>"
                 , "Percent of Black population vaccinated: "
-                , round(df_merged$black_fully,2)
+                , round(texas_merged$black_fully,2)
                 , "<br>"
                 , "Percent of Hispanic population vaccinated: "
-                , round(df_merged$hispanic_fully,2)
+                , round(texas_merged$hispanic_fully,2)
                 , "<br>"
                 , "Percent of White population vaccinated: "
-                , round(df_merged$white_fully,2))
+                , round(texas_merged$white_fully,2))
 pal <- colorNumeric(
   palette = "YlGnBu",
-  domain = df_merged$total_fully
+  domain = texas_merged$total_fully
 )
 
 leaflet() %>%
   addProviderTiles("CartoDB.Positron") %>%
-  addPolygons(data = df_merged, 
+  addPolygons(data = texas_merged, 
               fillColor = ~pal(total_fully), 
               color = "#b2aeae", # you need to use hex colors
               fillOpacity = 0.7, 
@@ -159,7 +168,7 @@ leaflet() %>%
               smoothFactor = 0.2,
               popup = popup) %>%
   addLegend(pal = pal, 
-            values = df_merged$total_fully, 
+            values = texas_merged$total_fully, 
             position = "bottomright", 
             title = "Percent of Total Population <br> Fully Vaccinated")
  
