@@ -391,7 +391,7 @@ KFF_vax_May10 <- read_csv("KFF_vax_May10.csv",
          hispanic_vax = as.numeric(hispanic_vax),
          native_vax = as.numeric(native_vax),
          pacific_islander_vax = as.numeric(pacific_islander_vax), 
-         date = "May 3") %>%
+         date = "May 10") %>%
   inner_join(state_demographics, by = "state") %>%
   mutate(white_metric = white_vax/white_pop,
          black_metric = black_vax/black_pop,

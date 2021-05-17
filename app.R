@@ -58,9 +58,9 @@ names(demographic_choice_values) <- demographic_choice_names
 
 # user chooses date
 date_choice_values <- c("March 1", "March 15", "March 29", "April 5", 
-                        "April 12", "April 19", "April 26", "May 3")
+                        "April 12", "April 19", "April 26", "May 3", "May 10")
 date_choice_names <- c("March 1", "March 15", "March 29", "April 5", 
-                       "April 12", "April 19", "April 26", "May 3")
+                       "April 12", "April 19", "April 26", "May 3", "May 10")
 names(date_choice_values) <- date_choice_names
 
 ## scatterplot 
