@@ -1,27 +1,29 @@
 #main .nav-pills > li.active > a,
 #main .nav-pills > li.active > a:hover,
 #main .nav-pills > li.active > a:focus {
-    background-color: #22983B;
+    background-color: #982d7f;
 }
+
 
 #main .nav-pills > li > a:hover {
-    background-color: #22983B;
+    background-color: #982d7f;
 }
 
+
 h1, h2, h3, h4, h5, h6, legend {
-    color: #22983B;
+    color: #982d7f;
 }
 
 #nav-top span.glyphicon {
-    color: #22983B;
+    color: #5f187f;
 }
 
 #table-of-contents header {
-    color: #22983B;
+    color: #5f187f;
 }
 
 #table-of-contents h2 {
-    background-color: #22983B;
+    background-color: #982d7f;
 }
 
 #main a {
@@ -30,14 +32,12 @@ h1, h2, h3, h4, h5, h6, legend {
 }
 
 #content h2 {
-    background-color: #fc853a;
+    background-color: #e95420;
+}
+
+#sidebar {
+  background: ##22201f;
 }
 
 
-a:hover {
-    color: #3d1308;
-}
 
-a:visited {
-    color: #3d1308;
-}
