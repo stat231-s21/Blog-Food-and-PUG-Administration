@@ -4,6 +4,7 @@ author: "Food and PUG Administration: Alison, Caroline, Sabrina"
 date: "May 18, 2021"
 output:
   rmdformats::readthedown:
+    css: custom.css
     thumbnails: false
     highlight: NULL
 
