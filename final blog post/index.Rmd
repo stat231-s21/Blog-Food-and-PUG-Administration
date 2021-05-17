@@ -776,7 +776,6 @@ Ratio values for Black and White Americans is fairly high, indicating that a maj
 
 # Considering vaccine distribution and COVID-19 cases at the county level
 
-## New York City
 
 ## Texas
 
@@ -860,11 +859,53 @@ tracts <- tracts(state = 'TX', cb=TRUE) %>%
 
 texas_merged <- geo_join(tracts, texas_data, "county_name", "county_name")
 
+popup <- paste0(texas_merged$county_name
+                , "<br>"
+                , "<br>"
+                , "Percent of Total population fully vaccinated: "
+                , round(texas_merged$total_fully,2)
+                , "<br>"
+                , "<br>"
+                , "Percent of Asian population fully vaccinated: "
+                , round(texas_merged$asian_fully,2)
+                , "<br>"
+                , "Percent of Black population fully vaccinated: "
+                , round(texas_merged$black_fully,2)
+                , "<br>"
+                , "Percent of Hispanic population fully vaccinated: "
+                , round(texas_merged$hispanic_fully,2)
+                , "<br>"
+                , "Percent of White population fully vaccinated: "
+                , round(texas_merged$white_fully,2))
+
+pal <- colorNumeric(
+  palette = "YlGnBu",
+  domain = texas_merged$total_fully
+)
+pal <- colorNumeric(
+  palette = "YlGnBu",
+  domain = texas_merged$total_fully
+)
+
+texas_vax_map <- leaflet() %>%
+  addProviderTiles("CartoDB.Positron") %>%
+  addPolygons(data = texas_merged, 
+              fillColor = ~pal(total_fully), 
+              color = "#b2aeae", 
+              fillOpacity = 0.7, 
+              weight = 1, 
+              smoothFactor = 0.2,
+              popup = popup) %>%
+  addLegend(pal = pal, 
+            values = texas_merged$total_fully, 
+            position = "bottomright", 
+            title = "Percent of Total Population <br> Fully Vaccinated")
+ 
 
 
 ```
 
-``` {r include=FALSE}
+``` {r eval=FALSE}
 popup <- paste0(texas_merged$county_name
                 , "<br>"
                 , "<br>"
