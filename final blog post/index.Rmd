@@ -184,7 +184,9 @@ Ratio values for Black and White Americans are fairly high, indicating that a ma
 
 ## Texas
 
-We were interested in looking at vaccine distribution at the county level to see if there any impact on where you live/who you are and whether you were able to receive a COVID-19 vaccine. Based on data made available by the [Texas Demographic Center](https://demographics.texas.gov/Data/TPEPP/Estimates/) and the [Texas Department of Health](https://tabexternal.dshs.texas.gov/t/THD/views/COVID-19VaccineinTexasDashboard/Summary?%3Aorigin=card_share_link&%3Aembed=y&%3AisGuestRedirectFromVizportal=y), we created the following county level map of Texas.
+We were interested in looking at vaccine distribution at the county level to see if there any impact on where you live/who you are and whether you were able to receive a COVID-19 vaccine. Based on data made available by the [Texas Demographic Center](https://demographics.texas.gov/Data/TPEPP/Estimates/) and the [Texas Department of Health](https://tabexternal.dshs.texas.gov/t/THD/views/COVID-19VaccineinTexasDashboard/Summary?%3Aorigin=card_share_link&%3Aembed=y&%3AisGuestRedirectFromVizportal=y), we created the following county level map of Texas. 
+
+Note: The population values are estimates 
 
 ```{r, include=FALSE}
 texas_counties <- map_data(map = "county"
@@ -317,12 +319,11 @@ texas_vax_map
 
 From the cloropleth above, we can discern that is there is great variation in the percent of the population that is fully vaccinated from county to county. For example, as of May 17th, Presidio County which borders Mexico has 58% of the total population vaccinated  but King County which is in the center of Texas has only 11% of the population vaccinated (based on 2019 Population Estimates).
 
-However, when we take a closer look into Presidio county, we see that while 58% of the total population is fully vaccinated, there is only 11% of the Black population is fully vaccinated while 78% of the White population is fully vaccinated. Unfortunately King County did not report any data on an Asian or Black population, but we still see the opposite of what is happening in Presidio county. The White population is only 8% fully vaccinated while 24% of the Hispanic population is fully vaccinated. Unfortunately
+However, when we take a closer look into Presidio county, we see that while 58% of the total population is fully vaccinated, there is only 11% of the Black population is fully vaccinated while 78% of the White population is fully vaccinated. Unfortunately King County did not report any data on an Asian or Black population, but we still see the opposite of what is happening in Presidio county. The White population is only 8% fully vaccinated while 24% of the Hispanic population is fully vaccinated. 
+
+So, what exactly is happening here? We saw in the vaccine hesitancy portion of our blog that Black Americans were the most hesitant to receive the vaccine which may explain what is happening in places like Presidio county. However, with a place like King County, it may be worthwhile conducting a vaccine hesitancy poll on just that population to see whether it varies greatly from the national responses. Ultimately, we would need to conduct further analysis on each county individually to see whether there are other factors at hand. Because we used 2019 population estimates and because you don't have to live in a county to get vaccinated there, we did encounter some situations where we had some populations were over 100% fully vaccinated. 
 
 
-We must now consider what is causing 
-
-## Code
 ``` {r eval=FALSE}
 texas_data <- texas_vaccine_data %>% 
   inner_join(texas_population_data, by = "county_name") %>%
@@ -387,7 +388,7 @@ texas_vax_map <- leaflet() %>%
 
 
 # Conclusions and Limitations
-Overall, from our graphics we can conclude that racial inequalities in vaccine distribution are present. The historical context of the U.S. healthcare system can help explain this, but looking at who is hesitant to get the vaccine provides another explanation. Using the first two graphics, we've noted that Hispanic Americans in particular have been getting vaccinated at lower rates, even when they wish to get vaccinated, which could be explained by language and citizenship barriers. Black Americans have also been getting vaccinated at lower rates, but vaccine hesitancy is able to account for a lot of that difference. For New York City and Texas...
+Overall, from our graphics we can conclude that racial inequalities in vaccine distribution are present. The historical context of the U.S. healthcare system can help explain this, but looking at who is hesitant to get the vaccine provides another explanation. Using the first two graphics, we've noted that Hispanic Americans in particular have been getting vaccinated at lower rates, even when they wish to get vaccinated, which could be explained by language and citizenship barriers. Black Americans have also been getting vaccinated at lower rates, but vaccine hesitancy is able to account for a lot of that difference. For Texas, we saw that there is a great variance depending on the county, and we've noted that further analysis is required to attempt to explain this variance. 
 
 It also important to discuss the limitations of our analysis. To start, not all states record racial data for vaccines, especially for underrepresented groups, so we have not been able to analyze as many groups as we had hoped. For vaccine hesitancy specifically, our data was limited to just 3 racial/ethnic groups. What data is available also influenced the choices of our county level maps. Additionally, vaccine data changes by the day, so not all of our data is from the same date, and our analyses could change over time. 
 
