@@ -183,6 +183,9 @@ Ratio values for Black and White Americans are fairly high, indicating that a ma
 # Considering vaccine distribution at the county level
 
 ## Texas
+
+We were interested in looking at vaccine distribution at the county level to see if there any impact on where you live/who you are and whether you were able to receive a COVID-19 vaccine. Based on data made available by the [Texas Demographic Center](https://demographics.texas.gov/Data/TPEPP/Estimates/) and the [Texas Department of Health](https://tabexternal.dshs.texas.gov/t/THD/views/COVID-19VaccineinTexasDashboard/Summary?%3Aorigin=card_share_link&%3Aembed=y&%3AisGuestRedirectFromVizportal=y), we created the following county level map of Texas.
+
 ```{r, include=FALSE}
 texas_counties <- map_data(map = "county"
                          , region = ".") %>%
@@ -265,6 +268,10 @@ texas_merged <- geo_join(tracts, texas_data, "county_name", "county_name")
 popup <- paste0(texas_merged$county_name
                 , "<br>"
                 , "<br>"
+                , "Percent of Total population fully vaccinated: "
+                , round(texas_merged$total_fully,2)
+                , "<br>"
+                , "<br>"
                 , "Percent of Asian population fully vaccinated: "
                 , round(texas_merged$asian_fully,2)
                 , "<br>"
@@ -306,8 +313,14 @@ texas_vax_map
 
 # {.tabset .tabset-fade .tabset-pills}
 
-## Information
-We were interested in looking at vaccine distribution at the county level to see if there any impact on where you live/who you are and whether you were able to receive a COVID-19 vaccine. Based on data made available by the [Texas Demographic Center](https://demographics.texas.gov/Data/TPEPP/Estimates/) and the [Texas Department of Health](https://tabexternal.dshs.texas.gov/t/THD/views/COVID-19VaccineinTexasDashboard/Summary?%3Aorigin=card_share_link&%3Aembed=y&%3AisGuestRedirectFromVizportal=y), we created the following county level map of Texas.
+## Variance from county to county
+
+From the cloropleth above, we can discern that is there is great variation in the percent of the population that is fully vaccinated from county to county. For example, as of May 17th, Presidio County which borders Mexico has 58% of the total population vaccinated  but King County which is in the center of Texas has only 11% of the population vaccinated (based on 2019 Population Estimates).
+
+However, when we take a closer look into Presidio county, we see that while 58% of the total population is fully vaccinated, there is only 11% of the Black population is fully vaccinated while 78% of the White population is fully vaccinated. Unfortunately King County did not report any data on an Asian or Black population, but we still see the opposite of what is happening in Presidio county. The White population is only 8% fully vaccinated while 24% of the Hispanic population is fully vaccinated. Unfortunately
+
+
+We must now consider what is causing 
 
 ## Code
 ``` {r eval=FALSE}
@@ -341,7 +354,7 @@ popup <- paste0(texas_merged$county_name
                 , "Percent of Black population fully vaccinated: "
                 , round(texas_merged$black_fully,2)
                 , "<br>"
-                , "Percent of Hispanic population fully vaccinated: "
+                , "Percent of Hispanic population fully vaccinated:"
                 , round(texas_merged$hispanic_fully,2)
                 , "<br>"
                 , "Percent of White population fully vaccinated: "
@@ -370,51 +383,10 @@ texas_vax_map <- leaflet() %>%
  
 
 
-``` {r eval=FALSE}
-popup <- paste0(texas_merged$county_name
-                , "<br>"
-                , "<br>"
-                , "Percent of Total population fully vaccinated: "
-                , round(texas_merged$total_fully,2)
-                , "<br>"
-                , "<br>"
-                , "Percent of Asian population fully vaccinated: "
-                , round(texas_merged$asian_fully,2)
-                , "<br>"
-                , "Percent of Black population fully vaccinated: "
-                , round(texas_merged$black_fully,2)
-                , "<br>"
-                , "Percent of Hispanic population fully vaccinated: "
-                , round(texas_merged$hispanic_fully,2)
-                , "<br>"
-                , "Percent of White population fully vaccinated: "
-                , round(texas_merged$white_fully,2))
-
-pal <- colorNumeric(
-  palette = "YlGnBu",
-  domain = texas_merged$total_fully
-)
-
-texas_vax_map <- leaflet() %>%
-  addProviderTiles("CartoDB.Positron") %>%
-  addPolygons(data = texas_merged, 
-              fillColor = ~pal(total_fully), 
-              color = "#b2aeae", 
-              fillOpacity = 0.7, 
-              weight = 1, 
-              smoothFactor = 0.2,
-              popup = popup) %>%
-  addLegend(pal = pal, 
-            values = texas_merged$total_fully, 
-            position = "bottomright", 
-            title = "Percent of Total Population <br> Fully Vaccinated")
- 
-
-```
 
 
 
-#Conclusions and Limitations
+# Conclusions and Limitations
 Overall, from our graphics we can conclude that racial inequalities in vaccine distribution are present. The historical context of the U.S. healthcare system can help explain this, but looking at who is hesitant to get the vaccine provides another explanation. Using the first two graphics, we've noted that Hispanic Americans in particular have been getting vaccinated at lower rates, even when they wish to get vaccinated, which could be explained by language and citizenship barriers. Black Americans have also been getting vaccinated at lower rates, but vaccine hesitancy is able to account for a lot of that difference. For New York City and Texas...
 
 It also important to discuss the limitations of our analysis. To start, not all states record racial data for vaccines, especially for underrepresented groups, so we have not been able to analyze as many groups as we had hoped. For vaccine hesitancy specifically, our data was limited to just 3 racial/ethnic groups. What data is available also influenced the choices of our county level maps. Additionally, vaccine data changes by the day, so not all of our data is from the same date, and our analyses could change over time. 
