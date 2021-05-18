@@ -156,7 +156,7 @@ bardata$hisp_hes <- .19+.19
 bardata$white_hes <- .13 +.19
 
 race <- c("Black", "Black", "Black", "White", "White","White", "Hispanic", "Hispanic", "Hispanic")
-measure <- c("Not Vaccinated", "Hesitant","Ratio (Hesitant / Not Vaccinated)", "Not Vaccinated", "Hesitant","Ratio (Hesitant / Not Vaccinated)", "Not Vaccinated", "Hesitant", "Ratio (Hesitant / Not Vaccinated)")
+measure <- c("Not Vaccinated", "Hesitant","Ratio", "Not Vaccinated", "Hesitant","Ratio", "Not Vaccinated", "Hesitant", "Ratio")
 value <- c(.75, .48, .64, .51, .32,.63, .73, .38, .52)
 bardata1 <- data.frame(race, measure, value)
 ```
