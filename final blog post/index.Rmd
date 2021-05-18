@@ -121,7 +121,7 @@ Hesitancy in getting the vaccine has also affected distribution on a national sc
 We wanted to measure to what extent hesitation to get the vaccine has affected lack of vaccinations by racial groups on a national scale. Using data from both [KFF](https://www.kff.org/other/state-indicator/percent-of-total-population-that-has-received-a-covid-19-vaccine-by-race-ethnicity/) for vaccinations and the [Morning Consult](https://morningconsult.com/covid19-vaccine-dashboard/) for hesitancy, we created a bar chart that compares the percentage of people in each racial group that reported that they were either uncertain or unwilling to get the vaccine with the percentage that have not been vaccinated. To further compare these values, we also added a ratio that accounts for the percentage of people who are hesitant to get vaccinated out of those who aren't vaccinated, again by racial group.
 
 <center> 
-Hesitancy ratio =  <math><mfrac><mi>% of given racial group that responded as being hesitant to get the vaccine</mi><mi>% </mi></mfrac></math>
+Hesitancy ratio =  <math><mfrac><mi>% of given racial group that responded as being hesitant to get the vaccine</mi><mi>% of a given racial group that is not vaccinated </mi></mfrac></math>
 </center> 
 
 
