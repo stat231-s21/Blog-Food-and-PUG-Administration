@@ -107,8 +107,6 @@ Across the country and over time, White and Asian people are receiving more than
 * Earlier maps show 89% of reporting states at “extremely below share” but 33% in later maps 
 ![Map as of May 10, 2021](native hawaiian or other pacific islander may 10.png)
 
-# []
-
 ## Conclusion and limitations
 
 These visualizations highlight an increase in data availability and equity in vaccine distribution to marginalized groups over time. They are limited by inconsistent reporting and raise questions about what explains such inequity in vaccine distribution. 
@@ -454,6 +452,7 @@ texas_vax_map
 I'll put the text here
 
 # References
+
 CDC. (2021, April 23). Risk for COVID-19 Infection, Hospitalization, and Death By Race/Ethnicity. https://www.cdc.gov/coronavirus/2019-ncov/covid-data/investigations-discovery/hospitalization-death-by-race-ethnicity.html
 
 Galewitz, P. (2021, April 5). Vermont to Give Minority Residents Vaccine Priority. Kaiser Health News. https://khn.org/news/article/vermont-gives-blacks-and-other-minority-residents-vaccine-priority/
@@ -467,3 +466,13 @@ Kaiser Family Foundation. (2020, October 23). Population Distribution by Race/Et
 Kaiser Family Foundation. (2021, May 12). Percent of Total Population that has Received a COVID-19 Vaccine by Race/Ethnicity. https://www.kff.org/other/state-indicator/percent-of-total-population-that-has-received-a-covid-19-vaccine-by-race-ethnicity/
 
 Laughlin, N. (2021, May 13). Vaccine Opposition Closely Mirrors Trump Vote by State; Pace of Vaccinations Stalls Among Young Adults. Morning Consult. https://morningconsult.com/covid19-vaccine-dashboard/
+
+New York Times. (2021, May 18). Coronavirus (Covid-19) Data in the United States. https://github.com/nytimes/covid-19-data (Original work published 2020)
+
+NYC Health. (2021, May 17). COVID-19 Vaccines. https://www1.nyc.gov/site/doh/covid/covid-19-data-vaccines.page
+
+Texas Demographic Center. (n.d.). Texas Population Estimates Program. Retrieved May 18, 2021, from https://demographics.texas.gov/Data/TPEPP/Estimates/
+
+Texas Health and Human Services. (n.d.). COVID-19 Vaccine in Texas. Retrieved May 18, 2021, from https://tabexternal.dshs.texas.gov/t/THD/views/COVID-19VaccineinTexasDashboard/Summary?%3Aorigin=card_share_link&%3Aembed=y&%3AisGuestRedirectFromVizportal=y
+
+U.S. Census Bureau. (2019, July 1). QuickFacts: Bronx County (Bronx Borough), New York; Richmond County (Staten Island Borough), New York; New York County (Manhattan Borough), New York; Queens County (Queens Borough), New York; Kings County (Brooklyn Borough), New York; New York. https://www.census.gov/quickfacts/fact/table/bronxcountybronxboroughnewyork,richmondcountystatenislandboroughnewyork,newyorkcountymanhattanboroughnewyork,queenscountyqueensboroughnewyork,kingscountybrooklynboroughnewyork,NY/PST045219
