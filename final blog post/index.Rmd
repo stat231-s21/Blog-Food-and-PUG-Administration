@@ -180,107 +180,9 @@ Here, we see that Black Americans are most hesitant to get the vaccine, followed
 
 Ratio values for Black and White Americans are fairly high, indicating that a majority of those who are not vaccinated can be accounted for by hesitancy. This also dually means there is a smaller percentage of those not vaccinated and not hesitant, less than 30%. This leads us to conclude that for these groups, for the most part, those who wish to get vaccinated can. For Hispanic Americans, the ratio is slightly lower (about .5), which shows that about half of Hispanics who are not hesitant to get the vaccine still have not been vaccinated. This aligns with our previous data, as the demographic metric for Hispanics seemed to be lower than that for Black and White people. Some factors that could contribute to this difference may lie in the fact that out of these 3 groups, Hispanics are more likely to be immigrants, so language and citizenship barriers are present. However, we also have to keep in mind that age and other factors such as predisposed conditions have allowed some to get vaccinated earlier than others, so a percentage of those not vaccinated and not hesitant simply could have not been eligible or able to get appointments at the time we collected our data. 
 
-# Considering vaccine distribution and COVID-19 cases at the county level
+# Considering vaccine distribution at the county level
 
-## New York City
-
-```{r}
-
-nyc_boroughs <- read_csv("nyc_boroughs.csv")
-
-
-nyc_cases <- read_csv("nyc cases by borough and age and race .csv") %>%
-  select(c("subgroup"
-           , "BK_CASE_COUNT"
-           , "BX_CASE_COUNT"
-           , "MN_CASE_COUNT"
-           , "QN_CASE_COUNT"
-           , "SI_CASE_COUNT")) %>%
-  rename("subregion" = "subgroup"
-         ,"Brooklyn" = "BK_CASE_COUNT"
-         ,"Bronx" = "BX_CASE_COUNT"
-         , "Manhattan" = "MN_CASE_COUNT"
-         , "Queens" = "QN_CASE_COUNT"
-         , "Staten Island" = "SI_CASE_COUNT" ) %>%
-  pivot_longer(c(-subregion)) %>%
-  pivot_wider(names_from = subregion, values_from = value) %>%
-  clean_names() %>%
-  select(c("name"
-           , "boroughwide"
-           , "asian_pacific_islander"
-           , "black_african_american"
-           , "hispanic_latino"
-           , "white")) %>%
-  rename("subregion" = "name"
-         , "asian" = "asian_pacific_islander"
-         , "black" = "black_african_american"
-         , "hispanic" = "hispanic_latino") %>%
-  mutate(asian_cases = asian/boroughwide
-         , black_cases = black/boroughwide
-         , hispanic_cases = hispanic/boroughwide
-         , white_cases = white/boroughwide)
-
-
-nyc_fully_vaccinated_by_race <- read_csv("nyc_fully_vaccinated_by_race.csv") %>%
-  rename("subregion" = "X1")
-
-
-
-
-tracts <- tracts(state = 'NY', cb=TRUE) %>%
-  inner_join(nyc_boroughs, by = "COUNTYFP")
-
-nyc_merged <- geo_join(tracts, nyc_fully_vaccinated_by_race, "subregion", "subregion") %>%
-  inner_join(nyc_cases, by = "subregion")
-
-popup <- paste0("<em>"
-                , nyc_merged$subregion
-                , "</em>"
-                , "<br>"
-                , "<br>"
-                , "Asian:  &nbsp;  Fully vaxxed: "
-                , round(nyc_merged$asian_fully,2)
-                , " &nbsp;  &nbsp; Cases: "
-                , round(nyc_merged$asian_cases,2)
-                , "<br>"
-                , "Black:  &nbsp;  Fully vaxxed: "
-                , round(nyc_merged$black_fully,2)
-                , " &nbsp;  &nbsp; Cases: "
-                , round(nyc_merged$black_cases,2)
-                , "<br>"
-                , "Latino:  &nbsp;  Fully vaxxed: "
-                , round(nyc_merged$latino_fully,2)
-                , " &nbsp;  &nbsp; Cases: "
-                , round(nyc_merged$hispanic_cases,2)
-                , "<br>"
-                , "White:  &nbsp;  Fully vaxxed: "
-                , round(nyc_merged$white_fully,2)
-                , " &nbsp;  &nbsp; Cases: "
-                , round(nyc_merged$white_cases,2))
-
-pal <- colorNumeric(
-  palette = "YlGnBu",
-  domain = nyc_merged$boroughwide
-)
-
-leaflet() %>%
-  addProviderTiles("CartoDB.Positron") %>%
-  addPolygons(data = nyc_merged, 
-              fillColor = ~pal(boroughwide), 
-              color = "#b2aeae", # you need to use hex colors
-              fillOpacity = 0.7, 
-              weight = 1, 
-              smoothFactor = 0.2,
-              popup = popup) 
-
-
-
-
-
-```
 ## Texas
-
-
 ```{r, include=FALSE}
 texas_counties <- map_data(map = "county"
                          , region = ".") %>%
@@ -379,6 +281,72 @@ pal <- colorNumeric(
   palette = "YlGnBu",
   domain = texas_merged$total_fully
 )
+
+texas_vax_map <- leaflet() %>%
+  addProviderTiles("CartoDB.Positron") %>%
+  addPolygons(data = texas_merged, 
+              fillColor = ~pal(total_fully), 
+              color = "#b2aeae", 
+              fillOpacity = 0.7, 
+              weight = 1, 
+              smoothFactor = 0.2,
+              popup = popup) %>%
+  addLegend(pal = pal, 
+            values = texas_merged$total_fully, 
+            position = "bottomright", 
+            title = "Percent of Total Population <br> Fully Vaccinated")
+ 
+```
+
+```{r}
+texas_vax_map
+```
+
+
+
+# {.tabset .tabset-fade .tabset-pills}
+
+## Information
+We were interested in looking at vaccine distribution at the county level to see if there any impact on where you live/who you are and whether you were able to receive a COVID-19 vaccine. Based on data made available by the [Texas Demographic Center](https://demographics.texas.gov/Data/TPEPP/Estimates/) and the [Texas Department of Health](https://tabexternal.dshs.texas.gov/t/THD/views/COVID-19VaccineinTexasDashboard/Summary?%3Aorigin=card_share_link&%3Aembed=y&%3AisGuestRedirectFromVizportal=y), we created the following county level map of Texas.
+
+## Code
+``` {r eval=FALSE}
+texas_data <- texas_vaccine_data %>% 
+  inner_join(texas_population_data, by = "county_name") %>%
+  inner_join(texas_total, by = "county_name") %>%
+  mutate(asian_fully = people_fully_vaccinated_Asian/asian_population
+         , hispanic_fully = people_fully_vaccinated_Hispanic/hispanic_population
+         , black_fully = people_fully_vaccinated_Black/black_population
+         , white_fully = people_fully_vaccinated_White/white_population
+         , other_fully = people_fully_vaccinated_Other/other_population
+         , total_fully = people_fully_vaccinated/total_population) %>%
+  inner_join(texas_counties, by = "county_name") 
+
+tracts <- tracts(state = 'TX', cb=TRUE) %>%
+  inner_join(texas_county_fips, by = "COUNTYFP") %>%
+  mutate(county_name = paste0(county_name, " County" ))
+
+texas_merged <- geo_join(tracts, texas_data, "county_name", "county_name")
+
+popup <- paste0(texas_merged$county_name
+                , "<br>"
+                , "<br>"
+                , "Percent of Total population fully vaccinated: "
+                , round(texas_merged$total_fully,2)
+                , "<br>"
+                , "<br>"
+                , "Percent of Asian population fully vaccinated: "
+                , round(texas_merged$asian_fully,2)
+                , "<br>"
+                , "Percent of Black population fully vaccinated: "
+                , round(texas_merged$black_fully,2)
+                , "<br>"
+                , "Percent of Hispanic population fully vaccinated: "
+                , round(texas_merged$hispanic_fully,2)
+                , "<br>"
+                , "Percent of White population fully vaccinated: "
+                , round(texas_merged$white_fully,2))
+
 pal <- colorNumeric(
   palette = "YlGnBu",
   domain = texas_merged$total_fully
@@ -397,10 +365,10 @@ texas_vax_map <- leaflet() %>%
             values = texas_merged$total_fully, 
             position = "bottomright", 
             title = "Percent of Total Population <br> Fully Vaccinated")
- 
-
 
 ```
+ 
+
 
 ``` {r eval=FALSE}
 popup <- paste0(texas_merged$county_name
@@ -426,10 +394,6 @@ pal <- colorNumeric(
   palette = "YlGnBu",
   domain = texas_merged$total_fully
 )
-pal <- colorNumeric(
-  palette = "YlGnBu",
-  domain = texas_merged$total_fully
-)
 
 texas_vax_map <- leaflet() %>%
   addProviderTiles("CartoDB.Positron") %>%
@@ -448,14 +412,7 @@ texas_vax_map <- leaflet() %>%
 
 ```
 
-```{r}
-texas_vax_map
-```
 
-# {.tabset .tabset-fade .tabset-pills}
-
-## Black
-I'll put the text here
 
 #Conclusions and Limitations
 Overall, from our graphics we can conclude that racial inequalities in vaccine distribution are present. The historical context of the U.S. healthcare system can help explain this, but looking at who is hesitant to get the vaccine provides another explanation. Using the first two graphics, we've noted that Hispanic Americans in particular have been getting vaccinated at lower rates, even when they wish to get vaccinated, which could be explained by language and citizenship barriers. Black Americans have also been getting vaccinated at lower rates, but vaccine hesitancy is able to account for a lot of that difference. For New York City and Texas...
