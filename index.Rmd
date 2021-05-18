@@ -321,7 +321,7 @@ From the cloropleth above, we can discern that is there is great variation in th
 
 However, when we take a closer look into Presidio county, we see that while 58% of the total population is fully vaccinated, there is only 11% of the Black population is fully vaccinated while 78% of the White population is fully vaccinated. Unfortunately King County did not report any data on an Asian or Black population, but we still see the opposite of what is happening in Presidio county. There, the White population is only 8% fully vaccinated while 24% of the Hispanic population is fully vaccinated. 
 
-So, what exactly is happening here? We saw in the vaccine hesitancy portion of our blog that Black Americans were the most hesitant to receive the vaccine which may explain what is happening in places like Presidio county. However, with a place like King County, it may be worthwhile conducting a vaccine hesitancy poll on just that population to see whether it varies  rom the national responses. Ultimately, we would need to conduct further analysis on each county individually to see whether there are other factors at hand. 
+So, what exactly is happening here? We saw in the vaccine hesitancy portion of our blog that Black Americans were the most hesitant to receive the vaccine which may explain what is happening in places like Presidio county. However, with a place like King County, it may be worthwhile conducting a vaccine hesitancy poll on just that population to see whether it varies from the national responses. Ultimately, we would need to conduct further analysis on each county individually to see whether there are other factors at hand. 
 
 ## Code
 ``` {r eval=FALSE}
