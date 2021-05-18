@@ -113,11 +113,17 @@ These visualizations highlight an increase in data availability and equity in va
 
 # Does vaccine hesitancy explain inequity in distribution?
 
-We also wanted to measure to what extent people’s hesitation to get the vaccine has affected lack of vaccinations by racial groups on a national scale. Using data from both [KFF](https://www.kff.org/other/state-indicator/percent-of-total-population-that-has-received-a-covid-19-vaccine-by-race-ethnicity/) for vaccinations and the [Morning Consult](https://morningconsult.com/covid19-vaccine-dashboard/) for hesitancy, we created a bar chart that compares the percentage of people in each racial group that reported that they were either uncertain or unwilling to get the vaccine with the percentage that have not been vaccinated. To further compare these values, we also added a ratio that accounts for the percentage of people who are hesitant to get vaccinated out of those who aren't vaccinated, again by racial group.
+Hesitancy in getting the vaccine has also affected distribution on a national scale. Some reasons given for being hesitant include, but are not limited to:
+-Concerns about side effects
+-Worried the vaccines moved through clinical trials too fast
+-Don't trust the companies making the vaccines
+
+We wanted to measure to what extent hesitation to get the vaccine has affected lack of vaccinations by racial groups on a national scale. Using data from both [KFF](https://www.kff.org/other/state-indicator/percent-of-total-population-that-has-received-a-covid-19-vaccine-by-race-ethnicity/) for vaccinations and the [Morning Consult](https://morningconsult.com/covid19-vaccine-dashboard/) for hesitancy, we created a bar chart that compares the percentage of people in each racial group that reported that they were either uncertain or unwilling to get the vaccine with the percentage that have not been vaccinated. To further compare these values, we also added a ratio that accounts for the percentage of people who are hesitant to get vaccinated out of those who aren't vaccinated, again by racial group.
 
 <center> 
 Hesitancy ratio =  <math><mfrac><mi>% of given racial group that responded as being hesitant to get the vaccine</mi><mi>% </mi></mfrac></math>
 </center> 
+
 
 ```{r, include=FALSE}
 # manually creating dataset
@@ -170,9 +176,9 @@ ggplot(bardata1,
     fill = "Measure")
 ```
 
-Here, we see that Black Americans are most hesitant to get the vaccine, followed by Hispanics, and then White. This makes sense given the history of racial discrimination in the healthcare system that has, understandingly, led to a general distrust of government led health initiatives. It is also worth noting that the percentage of non vaccinated people by racial group shows the same trend, with Blacks having the highest and whites the lowest. This suggests that there could be a correlation between the two measures, but it could be more useful to analyze what percentage of non vaccinated people said they were hesitant to get the vaccine. By dividing the hesitant percentage by the non vaccinated percentage, we are able to do this.
+Here, we see that Black Americans are most hesitant to get the vaccine, followed by Hispanics, and then White. This makes sense given the history of racial discrimination in the healthcare system that has, understandingly, led to a general distrust of government led health initiatives among POC. It is also worth noting that the percentage of non vaccinated people by racial group shows the same trend, with Blacks having the highest and whites the lowest. This suggests that there could be a correlation between the two measures, but it could be more useful to analyze what percentage of non vaccinated people said they were hesitant to get the vaccine. By dividing the hesitant percentage by the non vaccinated percentage, we are able to do this.
 
-Ratio values for Black and White Americans is fairly high, indicating that a majority of those who wish to get vaccinated from those groups are able to do so. For Hispanic Americans, the ratio is slightly lower, which shows that about half of Hispanics who are not hesitant to get the vaccine still have not been vaccinated. This aligns with our previous data, as the demographic metric for Hispanics seemed to be lower than that for Black and White people. Some factors that could contribute to this difference may lie in the fact that out of these 3 groups, Hispanics are more likely to be immigrants, so language and citizenship barriers are present. However, we also have to keep in mind that age and other factors such as predisposed conditions have allowed some to get vaccinated earlier than others, so a percentage of those not vaccinated and not hesitant simply could have not been eligible at the time we collected our data. 
+Ratio values for Black and White Americans are fairly high, indicating that a majority of those who are not vaccinated can be accounted for by hesitancy. This also dually means there is a smaller percentage of those not vaccinated and not hesitant, less than 30%. This leads us to conclude that for these groups, for the most part, those who wish to get vaccinated can. For Hispanic Americans, the ratio is slightly lower (about .5), which shows that about half of Hispanics who are not hesitant to get the vaccine still have not been vaccinated. This aligns with our previous data, as the demographic metric for Hispanics seemed to be lower than that for Black and White people. Some factors that could contribute to this difference may lie in the fact that out of these 3 groups, Hispanics are more likely to be immigrants, so language and citizenship barriers are present. However, we also have to keep in mind that age and other factors such as predisposed conditions have allowed some to get vaccinated earlier than others, so a percentage of those not vaccinated and not hesitant simply could have not been eligible or able to get appointments at the time we collected our data. 
 
 # Considering vaccine distribution and COVID-19 cases at the county level
 
@@ -450,6 +456,11 @@ texas_vax_map
 
 ## Black
 I'll put the text here
+
+#Conclusions and Limitations
+Overall, from our graphics we can conclude that racial inequalities in vaccine distribution are present. The historical context of the U.S. healthcare system can help explain this, but looking at who is hesitant to get the vaccine provides another explanation. Using the first two graphics, we've noted that Hispanic Americans in particular have been getting vaccinated at lower rates, even when they wish to get vaccinated, which could be explained by language and citizenship barriers. Black Americans have also been getting vaccinated at lower rates, but vaccine hesitancy is able to account for a lot of that difference. For New York City and Texas...
+
+It also important to discuss the limitations of our analysis. To start, not all states record racial data for vaccines, especially for underrepresented groups, so we have not been able to analyze as many groups as we had hoped. For vaccine hesitancy specifically, our data was limited to just 3 racial/ethnic groups. What data is available also influenced the choices of our county level maps. Additionally, vaccine data changes by the day, so not all of our data is from the same date, and our analyses could change over time. 
 
 # References
 
