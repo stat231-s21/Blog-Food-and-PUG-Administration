@@ -178,7 +178,102 @@ Ratio values for Black and White Americans is fairly high, indicating that a maj
 
 # Considering vaccine distribution and COVID-19 cases at the county level
 
+## New York City
 
+```{r}
+
+nyc_boroughs <- read_csv("nyc_boroughs.csv")
+
+
+nyc_cases <- read_csv("nyc cases by borough and age and race .csv") %>%
+  select(c("subgroup"
+           , "BK_CASE_COUNT"
+           , "BX_CASE_COUNT"
+           , "MN_CASE_COUNT"
+           , "QN_CASE_COUNT"
+           , "SI_CASE_COUNT")) %>%
+  rename("subregion" = "subgroup"
+         ,"Brooklyn" = "BK_CASE_COUNT"
+         ,"Bronx" = "BX_CASE_COUNT"
+         , "Manhattan" = "MN_CASE_COUNT"
+         , "Queens" = "QN_CASE_COUNT"
+         , "Staten Island" = "SI_CASE_COUNT" ) %>%
+  pivot_longer(c(-subregion)) %>%
+  pivot_wider(names_from = subregion, values_from = value) %>%
+  clean_names() %>%
+  select(c("name"
+           , "boroughwide"
+           , "asian_pacific_islander"
+           , "black_african_american"
+           , "hispanic_latino"
+           , "white")) %>%
+  rename("subregion" = "name"
+         , "asian" = "asian_pacific_islander"
+         , "black" = "black_african_american"
+         , "hispanic" = "hispanic_latino") %>%
+  mutate(asian_cases = asian/boroughwide
+         , black_cases = black/boroughwide
+         , hispanic_cases = hispanic/boroughwide
+         , white_cases = white/boroughwide)
+
+
+nyc_fully_vaccinated_by_race <- read_csv("nyc_fully_vaccinated_by_race.csv") %>%
+  rename("subregion" = "X1")
+
+
+
+
+tracts <- tracts(state = 'NY', cb=TRUE) %>%
+  inner_join(nyc_boroughs, by = "COUNTYFP")
+
+nyc_merged <- geo_join(tracts, nyc_fully_vaccinated_by_race, "subregion", "subregion") %>%
+  inner_join(nyc_cases, by = "subregion")
+
+popup <- paste0("<em>"
+                , nyc_merged$subregion
+                , "</em>"
+                , "<br>"
+                , "<br>"
+                , "Asian:  &nbsp;  Fully vaxxed: "
+                , round(nyc_merged$asian_fully,2)
+                , " &nbsp;  &nbsp; Cases: "
+                , round(nyc_merged$asian_cases,2)
+                , "<br>"
+                , "Black:  &nbsp;  Fully vaxxed: "
+                , round(nyc_merged$black_fully,2)
+                , " &nbsp;  &nbsp; Cases: "
+                , round(nyc_merged$black_cases,2)
+                , "<br>"
+                , "Latino:  &nbsp;  Fully vaxxed: "
+                , round(nyc_merged$latino_fully,2)
+                , " &nbsp;  &nbsp; Cases: "
+                , round(nyc_merged$hispanic_cases,2)
+                , "<br>"
+                , "White:  &nbsp;  Fully vaxxed: "
+                , round(nyc_merged$white_fully,2)
+                , " &nbsp;  &nbsp; Cases: "
+                , round(nyc_merged$white_cases,2))
+
+pal <- colorNumeric(
+  palette = "YlGnBu",
+  domain = nyc_merged$boroughwide
+)
+
+leaflet() %>%
+  addProviderTiles("CartoDB.Positron") %>%
+  addPolygons(data = nyc_merged, 
+              fillColor = ~pal(boroughwide), 
+              color = "#b2aeae", # you need to use hex colors
+              fillOpacity = 0.7, 
+              weight = 1, 
+              smoothFactor = 0.2,
+              popup = popup) 
+
+
+
+
+
+```
 ## Texas
 
 
@@ -262,10 +357,6 @@ tracts <- tracts(state = 'TX', cb=TRUE) %>%
 texas_merged <- geo_join(tracts, texas_data, "county_name", "county_name")
 
 popup <- paste0(texas_merged$county_name
-                , "<br>"
-                , "<br>"
-                , "Percent of Total population fully vaccinated: "
-                , round(texas_merged$total_fully,2)
                 , "<br>"
                 , "<br>"
                 , "Percent of Asian population fully vaccinated: "
