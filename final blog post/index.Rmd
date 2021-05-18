@@ -28,8 +28,6 @@ library(viridis)
 library(maps)
 library(leaflet)
 library(tigris)
-
-
 ```
 
 # Introduction
