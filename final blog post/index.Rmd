@@ -317,13 +317,13 @@ texas_vax_map
 
 ## Variance from county to county
 
-From the cloropleth above, we can discern that is there is great variation in the percent of the population that is fully vaccinated from county to county. For example, as of May 17th, Presidio County which borders Mexico has 58% of the total population vaccinated  but King County which is in the center of Texas has only 11% of the population vaccinated (based on 2019 Population Estimates).
+From the cloropleth above, we can discern that is there is great variation in the percent of the population that is fully vaccinated from county to county. For example, as of May 17th, Presidio County which borders Mexico has 58% of the total population vaccinated  but King County which is in the top center of Texas has only 11% of the population vaccinated (based on 2019 Population Estimates).
 
-However, when we take a closer look into Presidio county, we see that while 58% of the total population is fully vaccinated, there is only 11% of the Black population is fully vaccinated while 78% of the White population is fully vaccinated. Unfortunately King County did not report any data on an Asian or Black population, but we still see the opposite of what is happening in Presidio county. The White population is only 8% fully vaccinated while 24% of the Hispanic population is fully vaccinated. 
+However, when we take a closer look into Presidio county, we see that while 58% of the total population is fully vaccinated, there is only 11% of the Black population is fully vaccinated while 78% of the White population is fully vaccinated. Unfortunately King County did not report any data on an Asian or Black population, but we still see the opposite of what is happening in Presidio county. There, the White population is only 8% fully vaccinated while 24% of the Hispanic population is fully vaccinated. 
 
-So, what exactly is happening here? We saw in the vaccine hesitancy portion of our blog that Black Americans were the most hesitant to receive the vaccine which may explain what is happening in places like Presidio county. However, with a place like King County, it may be worthwhile conducting a vaccine hesitancy poll on just that population to see whether it varies greatly from the national responses. Ultimately, we would need to conduct further analysis on each county individually to see whether there are other factors at hand. Because we used 2019 population estimates and because you don't have to live in a county to get vaccinated there, we did encounter some situations where we had some populations were over 100% fully vaccinated. 
+So, what exactly is happening here? We saw in the vaccine hesitancy portion of our blog that Black Americans were the most hesitant to receive the vaccine which may explain what is happening in places like Presidio county. However, with a place like King County, it may be worthwhile conducting a vaccine hesitancy poll on just that population to see whether it varies  rom the national responses. Ultimately, we would need to conduct further analysis on each county individually to see whether there are other factors at hand. 
 
-
+## Code
 ``` {r eval=FALSE}
 texas_data <- texas_vaccine_data %>% 
   inner_join(texas_population_data, by = "county_name") %>%
@@ -382,6 +382,7 @@ texas_vax_map <- leaflet() %>%
 
 ```
  
+
 
 
 
