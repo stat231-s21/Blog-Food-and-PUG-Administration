@@ -73,7 +73,7 @@ Looking at each demographic group, we can observe some shifts in the number of s
 # {.tabset .tabset-fade .tabset-pills}
 
 ## Overview
-Across the country and over time, White and Asian people are receiving more than their share of vaccines, while Black and Hispanic people are receiving less than their share.  American Indians and Pacific Islanders are also generally receiving less than their share, though data is more sparse for these groups. Vaccine distribution for all demographic groups except American Indians or Alaska Natives has become more equitable over time in terms of moving away from either “extremely below share” or “extremely above share.” 
+Across the country and over time, White and Asian people are receiving more than their share of vaccines, while Black and Hispanic people are receiving less than their share.  American Indians or Alaska Natives and Native Hawaiians or Other Pacific Islanders are also generally receiving less than their share, though data is more sparse for these groups. Vaccine distribution for all demographic groups except American Indians or Alaska Natives has become more equitable over time in terms of moving away from either “extremely below share” or “extremely above share.” 
 
 ## White 
 * 10 states (20%) missing on March 1, 2021 - 4 states (8%) missing on May 10, 2021
