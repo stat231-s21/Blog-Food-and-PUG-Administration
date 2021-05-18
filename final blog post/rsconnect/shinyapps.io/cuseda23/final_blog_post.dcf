@@ -1,0 +1,13 @@
+name: final_blog_post
+title: final_blog_post
+username:
+account: cuseda23
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 4145708
+bundleId: 4609618
+url: https://cuseda23.shinyapps.io/final_blog_post/
+when: 1621300178.19248
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: alldata.csv|american indian or alaska native may 10.jpg|asian may 10.jpg|black may 10.jpg|custom.css|hispanic may 10.jpg|index.html|index.Rmd|KFF_vax_April12.csv|KFF_vax_April19.csv|KFF_vax_April26.csv|KFF_vax_April5.csv|KFF_vax_March1.csv|KFF_vax_March15.csv|KFF_vax_March29.csv|KFF_vax_May10.csv|KFF_vax_May3.csv|KFF_vax_wrangling.R|may 3.csv|native hawaiian or other pacific islander may 10.jpg|state_demographics.csv|Texas Admin Vaccination Data by Race and by County .csv|texas fully vaccinated data by county .csv|texas_county_fips.csv|texas_total.csv|texas_vaccine_data_by_race.csv|texas_wrangling.R|white may 10.jpg|index_files/figure-html/unnamed-chunk-5-1.png

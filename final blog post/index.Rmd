@@ -113,15 +113,15 @@ These visualizations highlight an increase in data availability and equity in va
 
 # Does vaccine hesitancy explain inequity in distribution?
 
-Hesitancy in getting the vaccine has also affected distribution on a national scale. Some reasons given for being hesitant include, but are not limited to:
--Concerns about side effects
--Worried the vaccines moved through clinical trials too fast
--Don't trust the companies making the vaccines
+Hesitancy in getting the vaccine has also affected distribution on a national scale. Some reasons given for being hesitant include, but are not limited to:     
+-Concerns about side effects     
+-Worried the vaccines moved through clinical trials too fast     
+-Don't trust the companies making the vaccines     
 
 We wanted to measure to what extent hesitation to get the vaccine has affected lack of vaccinations by racial groups on a national scale. Using data from both [KFF](https://www.kff.org/other/state-indicator/percent-of-total-population-that-has-received-a-covid-19-vaccine-by-race-ethnicity/) for vaccinations and the [Morning Consult](https://morningconsult.com/covid19-vaccine-dashboard/) for hesitancy, we created a bar chart that compares the percentage of people in each racial group that reported that they were either uncertain or unwilling to get the vaccine with the percentage that have not been vaccinated. To further compare these values, we also added a ratio that accounts for the percentage of people who are hesitant to get vaccinated out of those who aren't vaccinated, again by racial group.
 
 <center> 
-Hesitancy ratio =  <math><mfrac><mi>% of given racial group that responded as being hesitant to get the vaccine</mi><mi>% </mi></mfrac></math>
+Hesitancy ratio =  <math><mfrac><mi>% of given racial group that responded as being hesitant to get the vaccine</mi><mi>% of a given racial group that is not vaccinated </mi></mfrac></math>
 </center> 
 
 
@@ -156,7 +156,7 @@ bardata$hisp_hes <- .19+.19
 bardata$white_hes <- .13 +.19
 
 race <- c("Black", "Black", "Black", "White", "White","White", "Hispanic", "Hispanic", "Hispanic")
-measure <- c("Not Vaccinated", "Hesitant","Ratio (Hesitant / Not Vaccinated)", "Not Vaccinated", "Hesitant","Ratio (Hesitant / Not Vaccinated)", "Not Vaccinated", "Hesitant", "Ratio (Hesitant / Not Vaccinated)")
+measure <- c("Not Vaccinated", "Hesitant","Ratio", "Not Vaccinated", "Hesitant","Ratio", "Not Vaccinated", "Hesitant", "Ratio")
 value <- c(.75, .48, .64, .51, .32,.63, .73, .38, .52)
 bardata1 <- data.frame(race, measure, value)
 ```
